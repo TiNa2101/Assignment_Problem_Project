@@ -3,14 +3,15 @@
 #include <iostream>
 #include <string>
 #include <ctime>
+#include <climits>
 
 class MyMatrix {
  public:
-  int rowcnt;  // кол-во рабочих
-  int colcnt;  // кол-во работ
+  int rowcnt;
+  int colcnt;
 
-  int** matrix_1;  // Основная матрица
-  int** matrix_2;  // Рабочая матрица
+  int** matrix_1;
+  int** matrix_2;
 
   int* StrokiBezM1;
   int KolvoStrokBezM1;
@@ -57,7 +58,7 @@ MyMatrix::MyMatrix(std::string filename) {
   matrix_1 = new int*[100];
   for (int i = 0; i < 100; i++) {
     matrix_1[i] = new int[100];
-  }  // изначальная матрица
+  }  // ГЁГ§Г­Г Г·Г Г«ГјГ­Г Гї Г¬Г ГІГ°ГЁГ¶Г 
 
   int cnt_space = 0;
   int cnt_symb = 0;
@@ -171,7 +172,7 @@ void MyMatrix::Step1(int** matrix) {
   matrix_2 = new int*[rowcnt];
   for (int i = 0; i < rowcnt; i++) {
     matrix_2[i] = new int[colcnt];
-  }  // изменяющаяся матрица
+  }
 
   for (int i = 0; i < rowcnt; i++) {
     for (int j = 0; j < colcnt; j++) {
@@ -216,7 +217,6 @@ void MyMatrix::Step2(int** matrix) {
 }
 
 int MyMatrix::Opimum() {
-  // выбор оптимального решения
 
   std::cout << std::endl;
   std::cout << "STEP 3" << std::endl;
@@ -245,7 +245,6 @@ int MyMatrix::Opimum() {
           int countCol0 = 0;
           int countCol1 = 0;
 
-          // проходимся по строке, в которой встретили 0
           for (int jj = 0; jj < colcnt; jj++) {
             if (matrix_2[i][jj] == 0) {
               countRow0++;
@@ -255,7 +254,6 @@ int MyMatrix::Opimum() {
             }
           }
 
-          // проходимся по столбцу, в котором встретили 0
           for (int ii = 0; ii < rowcnt; ii++) {
             if (matrix_2[ii][j] == 0) {
               countCol0++;
@@ -291,8 +289,8 @@ int MyMatrix::Opimum() {
     std::cout << "number of zeros - " << counter_of_zeros << std::endl;
 
     int flag1 = 0;
-    if (counterIter == counter_of_zeros) {  // количество нулей не поменялось,
-                                            // значит зациклилась
+    if (counterIter == counter_of_zeros) {
+
       for (int i = 0; i < rowcnt; i++) {
         for (int j = 0; j < colcnt; j++) {
           if ((matrix_2[i][j] == 0) && (flag1 == 0)) {
@@ -384,10 +382,10 @@ void MyMatrix::Step21() {
   int MinNeVych = INT_MAX;
   for (int i = 0; i < rowcnt; i++) {
     if (isInArray(StrokiNeOtm, KolvoStrokNeOtm, i) ==
-        0) {  // Если нет в списке вычеркнутых строк
+        0) {
       for (int j = 0; j < colcnt; j++) {
         if (isInArray(StolbSM3, KolvoStolbSM3, j) ==
-            0) {  // Если нет в списке вычеркнутых столбцов
+            0) {
           if (matrix_2[i][j] < MinNeVych) {
             MinNeVych = matrix_2[i][j];
           }
@@ -398,17 +396,17 @@ void MyMatrix::Step21() {
 
   for (int i = 0; i < rowcnt; i++) {
     if (isInArray(StrokiNeOtm, KolvoStrokNeOtm, i) ==
-        0) {  // Если нет в списке вычеркнутых строк
+        0) {
       for (int j = 0; j < colcnt; j++) {
         if (isInArray(StolbSM3, KolvoStolbSM3, j) ==
-            0) {  // Если нет в списке вычеркнутых столбцов
+            0) {
           matrix_2[i][j] -= MinNeVych;
         }
       }
-    } else {  // Если есть в списке вычеркнутых строк
+    } else {
       for (int j = 0; j < colcnt; j++) {
         if (isInArray(StolbSM3, KolvoStolbSM3, j) ==
-            1) {  // Если нет в списке вычеркнутых столбцов
+            1) {
           if (matrix_2[i][j] < 0)
             matrix_2[i][j] = MinNeVych;
           else
