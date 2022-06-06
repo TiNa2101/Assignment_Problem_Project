@@ -50,3 +50,21 @@ jobs:
           name: assignment_problem_git
           path: mix_naznach.exe
           retention-days: 1
+          
+  report:
+    runs-on: ubuntu-20.04
+    needs: [build, build_win]
+    steps:
+      - name: send telegram message on push
+        uses: appleboy/telegram-action@master
+        with:
+          to: ${{ secrets.TELEGRAM_TO }}
+          token: ${{ secrets.TELEGRAM_TOKEN }}
+          message: |
+            ${{ github.actor }} created commit:
+            Commit message: ${{ github.event.commits[0].message }}
+            
+            Repository: ${{ github.repository }}
+            
+            See changes: https://github.com/${{ github.repository }}/commit/${{github.sha}}
+      
