@@ -8,7 +8,7 @@ on:
 
   workflow_dispatch:
 env:
-  global_env: global
+  artifact_name: assignment_problem_git_ver_${{ github.sha  }}
       
 jobs:
         
@@ -31,7 +31,7 @@ jobs:
       - name: Upload a build artifact
         uses: actions/upload-artifact@v2.3.1
         with:
-          name: assignment_problem_git
+          name: ${{ env.artifact_name }}
           path: ./${{ env.app_name }}
           retention-days: 1
         
@@ -47,11 +47,12 @@ jobs:
       - name: Upload a build artifact
         uses: actions/upload-artifact@v2.3.1
         with:
-          name: assignment_problem_git
+          name: ${{ env.artifact_name }}
           path: mix_naznach.exe
           retention-days: 1
           
   report:
+    if: failure()
     runs-on: ubuntu-20.04
     needs: [build, build_win]
     steps:
@@ -67,4 +68,22 @@ jobs:
             Repository: ${{ github.repository }}
             
             See changes: https://github.com/${{ github.repository }}/commit/${{github.sha}}
-      
+            
+  export:
+    runs-on: ubuntu-20.04
+    needs: [build, build_win]
+    steps:
+      - name: Download a Build Artifact
+        uses: actions/download-artifact@v2.1.0
+        with:
+          name: ${{ env.artifact_name }}
+          
+      - name: send telegram message on push
+        uses: appleboy/telegram-action@master
+        with:
+          to: ${{ secrets.TELEGRAM_TO }}
+          token: ${{ secrets.TELEGRAM_TOKEN }}
+          document: ${{ env.artifact_name }}
+          message: |
+            ${{ github.actor }} created commit:
+            See changes: https://github.com/${{ github.repository }}/commit/${{github.sha}}
