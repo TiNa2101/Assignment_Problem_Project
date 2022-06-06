@@ -11,23 +11,36 @@ env:
   global_env: global
       
 jobs:
-  sys_info:
-    runs-on: windows-latest
-    env:
-      local_env: job
-      
-    steps:
-      - name: check tools
-        run: g++ -v
         
   build:
-    needs: [sys_info]
-    runs-on: windows-latest
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ ubuntu-20.04, macos-11 ]
+        gcc_o: ["-O0", "-O3"]
+        
+    env:
+      app_name: app-${{ matrix.os }}${{ matrix.gcc_o }}_ver.${{ github.run_number }}
+    steps:
+      - uses: actions/checkout@v3
+      - name: build
+        run: |
+            g++ mix_naznach.cpp ${{ matrix.gcc_o }} -o ${{ env.app_name }}
+            ./${{ env.app_name }}
+            
+      - name: Upload a build artifact
+        uses: actions/upload-artifact@v2.3.1
+        with:
+          name: assignment_problem_git
+          path: ./${{ env.app_name }}
+          retention-days: 1
+        
+  build_win:
+    runs-on: windows-2022
 
     steps:
       - uses: actions/checkout@v3
       - uses: ilammy/msvc-dev-cmd@v1
-
       - name: build
         run: cl /EHsc mix_naznach.cpp
 
