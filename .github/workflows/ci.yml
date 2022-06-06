@@ -78,6 +78,9 @@ jobs:
         with:
           name: ${{ env.artifact_name }}
           
+      - name: ls
+        run: ls -la
+          
       - name: send telegram message on push
         uses: appleboy/telegram-action@master
         with:
