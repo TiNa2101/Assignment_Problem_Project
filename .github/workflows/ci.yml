@@ -15,17 +15,25 @@ jobs:
     runs-on: windows-latest
     env:
       local_env: job
+      
+    steps:
+      - name: check tools
+        run: g++ -v
+        
+  build:
+    needs: [sys_info]
+    runs-on: windows-latest
 
     steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v3
 
-      - name: Run a one-line script
-        run: echo Hello, world!
-
-      - name: user
-        run: uname
-      - name: sysinfo
+      - name: build
         run: |
-          echo Add other actions to build,
-          echo test, and deploy your project.
+            g++ main.cpp -o app_${RUNNER_OS}_ver.${GITHUB_RUN_NUMBER}
+            ./app_${RUNNER_OS}_ver.${GITHUB_RUN_NUMBER}
+
+      - name: Upload a build artifact
+        uses: actions/upload-artifact@v2.3.1
+        with:
+          name: assignment_problem_git
+          path: app_**
