@@ -11,12 +11,12 @@ int main() {
   clock_t start, end;
   start = clock();
 
-  std::string input_method;             // способ ввода матрицы
-  std::string filename;                 // имя файла, в котором сидит матрица
-  int size;                             // размер матрицы, записанной от руки
-  int **matrix;                         // матрица для записи от руки
-  std::ofstream user_write_matrix_file; // файл для записанной от руки матрицы
-
+  std::string input_method;             // Г±ГЇГ®Г±Г®ГЎ ГўГўГ®Г¤Г  Г¬Г ГІГ°ГЁГ¶Г»
+  std::string filename;                 // ГЁГ¬Гї ГґГ Г©Г«Г , Гў ГЄГ®ГІГ®Г°Г®Г¬ Г±ГЁГ¤ГЁГІ Г¬Г ГІГ°ГЁГ¶Г 
+  int size;                             // Г°Г Г§Г¬ГҐГ° Г¬Г ГІГ°ГЁГ¶Г», Г§Г ГЇГЁГ±Г Г­Г­Г®Г© Г®ГІ Г°ГіГЄГЁ
+  int **matrix;                         // Г¬Г ГІГ°ГЁГ¶Г  Г¤Г«Гї Г§Г ГЇГЁГ±ГЁ Г®ГІ Г°ГіГЄГЁ
+  std::ofstream user_write_matrix_file; // ГґГ Г©Г« Г¤Г«Гї Г§Г ГЇГЁГ±Г Г­Г­Г®Г© Г®ГІ Г°ГіГЄГЁ Г¬Г ГІГ°ГЁГ¶Г»
+/*
   std::cout << "Is the matrix in a file, or will you enter it yourself?" << std::endl;
   std::cout << "Write: file or write:" << std::endl;
   std::cin >> input_method;
@@ -59,10 +59,10 @@ int main() {
       M->Run();
     }
   }
-
-  //MyMatrix *M = new MyMatrix("matrix.txt");
+*/
+  MyMatrix *M = new MyMatrix("matrix.txt");
   
-  //M->Run();
+  M->Run();
 
   // delete M;
 
