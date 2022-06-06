@@ -10,13 +10,13 @@ int main() {
     
   clock_t start, end;
   start = clock();
-
+/*
   std::string input_method;             // ñïîñîá ââîäà ìàòðèöû
   std::string filename;                 // èìÿ ôàéëà, â êîòîðîì ñèäèò ìàòðèöà
   int size;                             // ðàçìåð ìàòðèöû, çàïèñàííîé îò ðóêè
   int **matrix;                         // ìàòðèöà äëÿ çàïèñè îò ðóêè
   std::ofstream user_write_matrix_file; // ôàéë äëÿ çàïèñàííîé îò ðóêè ìàòðèöû
-/*
+
   std::cout << "Is the matrix in a file, or will you enter it yourself?" << std::endl;
   std::cout << "Write: file or write:" << std::endl;
   std::cin >> input_method;
