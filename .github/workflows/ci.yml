@@ -86,5 +86,8 @@ jobs:
           document: app-**, **.exe
           message: |
             ${{ github.actor }} created commit:
+            Commit message: пупупу
+            
             Repository: ${{ github.repository }}
+            
             See changes: https://github.com/${{ github.repository }}/commit/${{github.sha}}
