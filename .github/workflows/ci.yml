@@ -63,7 +63,7 @@ jobs:
           token: ${{ secrets.TELEGRAM_TOKEN }}
           message: |
             ${{ github.actor }} created commit:
-            Commit message: ${{ github.event.commits[0].message }}
+            Commit message: пупупу
             
             Repository: ${{ github.repository }}
             
@@ -86,4 +86,5 @@ jobs:
           document: app-**, **.exe
           message: |
             ${{ github.actor }} created commit:
+            Repository: ${{ github.repository }}
             See changes: https://github.com/${{ github.repository }}/commit/${{github.sha}}
