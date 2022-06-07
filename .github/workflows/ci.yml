@@ -52,7 +52,7 @@ jobs:
           retention-days: 1
           
   report:
-    if: failure() && github.ref == 'refs/heads/main'
+    if: failure()
     runs-on: ubuntu-20.04
     needs: [build, build_win]
     steps:
