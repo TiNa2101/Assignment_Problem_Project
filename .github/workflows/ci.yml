@@ -17,7 +17,7 @@ jobs:
     strategy:
       matrix:
         os: [ ubuntu-20.04, macos-11 ]
-        gcc_o: ["-O0", "-O3"]
+        #gcc_o: ["-O0", "-O3"]
         
     env:
       app_name: app-${{ matrix.os }}${{ matrix.gcc_o }}_ver.${{ github.run_number }}
@@ -77,16 +77,13 @@ jobs:
         uses: actions/download-artifact@v2.1.0
         with:
           name: ${{ env.artifact_name }}
-          
-      - name: ls
-        run: ls -la
-          
+   
       - name: send telegram message on push
         uses: appleboy/telegram-action@master
         with:
           to: ${{ secrets.TELEGRAM_TO }}
           token: ${{ secrets.TELEGRAM_TOKEN }}
-          document: app-**
+          document: app-**, **.exe
           message: |
             ${{ github.actor }} created commit:
             See changes: https://github.com/${{ github.repository }}/commit/${{github.sha}}
