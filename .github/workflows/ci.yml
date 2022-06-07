@@ -52,7 +52,7 @@ jobs:
           retention-days: 1
           
   report:
-    if: failure()
+    if: failure() && github.ref == 'refs/heads/main'
     runs-on: ubuntu-20.04
     needs: [build, build_win]
     steps:
@@ -86,7 +86,7 @@ jobs:
         with:
           to: ${{ secrets.TELEGRAM_TO }}
           token: ${{ secrets.TELEGRAM_TOKEN }}
-          document: ${{ env.artifact_name }}
+          document: app-**
           message: |
             ${{ github.actor }} created commit:
             See changes: https://github.com/${{ github.repository }}/commit/${{github.sha}}
